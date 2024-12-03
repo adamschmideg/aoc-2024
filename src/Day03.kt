@@ -6,6 +6,7 @@ fun main() {
         // Find not overlapping matches
         val matches = regex.findAll(text)
         var accumulator = 0
+        print("Matches: ${matches.count()}\nLast match: ${matches.lastOrNull()?.value}\n")
         for (match in matches) {
             val a = match.groups[1]!!.value.toInt()
             val b = match.groups[2]!!.value.toInt()
