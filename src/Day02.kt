@@ -11,6 +11,13 @@ fun main() {
         return allWithinRange && allSameSign
     }
 
+    check(!isSafe(listOf(1, 2, 7, 8, 9)))
+    check(!isSafe(listOf(9, 7, 6, 2, 1)))
+    check(!isSafe(listOf(1, 3, 2, 4, 5)))
+    check(!isSafe(listOf(8, 6, 4, 4, 1)))
+
+    check(isSafe(listOf(1, 3, 6, 7, 9)))
+
     fun part1(input: List<String>): Int {
         val listOfNumberList = input.map { it.split("\\s+".toRegex()).map { it.toInt() } }
         return listOfNumberList.filter { isSafe(it) }.count()
@@ -19,13 +26,6 @@ fun main() {
     fun part2(input: List<String>): Int {
         return TODO()
     }
-
-    check(!isSafe(listOf(1, 2, 7, 8, 9)))
-    check(!isSafe(listOf(9, 7, 6, 2, 1)))
-    check(!isSafe(listOf(1, 3, 2, 4, 5)))
-    check(!isSafe(listOf(8, 6, 4, 4, 1)))
-
-    check(isSafe(listOf(1, 3, 6, 7, 9)))
 
     val testInput = readInput("Day02_test")
     val result1 = part1(testInput)
