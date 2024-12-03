@@ -23,14 +23,35 @@ fun main() {
         return listOfNumberList.filter { isSafe(it) }.count()
     }
 
+    fun isSafeWithOmission(row: List<Int>): Boolean {
+        if (isSafe(row)) return true
+
+        for (i in row.indices) {
+            val newRow = row.toMutableList()
+            newRow.removeAt(i)
+            if (isSafe(newRow)) return true
+        }
+
+        return false
+    }
+
+    check(isSafeWithOmission(listOf(7, 6, 4, 2, 1)))
+    check(!isSafeWithOmission(listOf(1, 2, 7, 8, 9)))
+    check(isSafeWithOmission(listOf(1, 3, 2, 4, 5)))
+
     fun part2(input: List<String>): Int {
-        return TODO()
+        val listOfNumberList = input.map { it.split("\\s+".toRegex()).map { it.toInt() } }
+        return listOfNumberList.filter { isSafeWithOmission(it) }.count()
     }
 
     val testInput = readInput("Day02_test")
     val result1 = part1(testInput)
     check(result1 == 2, { "2 != $result1" })
 
+    val result2 = part2(testInput)
+    check(result2 == 4, { "4!= $result2" })
+
     val input = readInput("Day02")
     part1(input).println()
+    part2(input).println()
 }
