@@ -18,10 +18,18 @@ fun main() {
     }
 
     fun part2(input: List<String>): Int {
-        val text = input.joinToString("\n")
         val skipRegex = """don't\(\).*?do\(\)""".toRegex()
-        val cleanedText = skipRegex.replace(text, "")
-        return evaluate(cleanedText)
+        val full = input.joinToString("")
+        val cleaned = skipRegex.replace(full, "")
+        return evaluate(cleaned)
+
+        var accumulator = 0
+        for (line in input) {
+            val cleanedText = skipRegex.replace(line, "")
+            print("Cleaned: $cleanedText\n")
+            accumulator += evaluate(cleanedText)
+        }
+        return accumulator
     }
 
     val testInput = readInput("Day03_test")
@@ -34,6 +42,10 @@ fun main() {
     val testInput2 = listOf("xmul(2,4)&mul[3,7]!^don't()_mul(5,5)+mul(32,64](mul(11,8)undo()?mul(8,5))")
     val result2 = part2(testInput2)
     check(result2 == 48, { "$result2" })
+
+    val doubleDontInput = listOf("don't()mul(2,4)&mul[3,7]!^don't()_mul(5,5)+do()mul(2,6)(mul(1")
+    val result3 = part2(doubleDontInput)
+    check(result3 == 12, { "$result3" })
 
     part2(input).println()
 }
