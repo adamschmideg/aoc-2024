@@ -13,7 +13,14 @@ fun main() {
     }
 
     fun part2(input: List<String>): Int {
-        return input.size
+        val numberPairs = input.map { line ->
+            // split line at consecutive spaces into two numbers and convert them to integers
+            val (first, second) = line.split("\\s+".toRegex()).map { it.toInt() }
+            Pair(first, second)
+        }
+        // Count occurrences of each number in the second column
+        val secondColumnCounts = numberPairs.map { it.second }.groupingBy { it }.eachCount()
+        return numberPairs.sumOf { (secondColumnCounts[it.first]?: 0) * it.first}
     }
 
     // Test if implementation meets criteria from the description, like:
@@ -24,6 +31,9 @@ fun main() {
     val testInput = readInput("Day01_test")
     val result = part1(testInput)
     check(result == 11, { "11 != $result" })
+
+    val resultPart2 = part2(testInput)
+    check(resultPart2 == 31, { "31 != $resultPart2" })
 
     // Read the input from the `src/Day01.txt` file.
     val input = readInput("Day01")
