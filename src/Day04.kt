@@ -34,8 +34,8 @@ fun main() {
         if (input[i][j]!= center) return 0
 
         var count = 0
-        for (x in -1..1) {
-            for (y in -1..1) {
+        for (x in -1..1 step 2) {
+            for (y in -1..1 step 2) {
                 if (input[i + x][j + y] == before && input[i - x][j - y] == after &&
                     input[i + y][j - x] == before && input[i - y][j + x] == after) {
                     count++
@@ -67,6 +67,12 @@ fun main() {
     val input = readInput("Day04")
 
     check(part1(testInput) == 18, { "${part1(testInput)}" })
+
+    val crosses = """
+        |MMM
+        |MAS
+        |SSS""".trimMargin("|").split("\n")
+    check(part2(crosses) == 1, { "${part2(crosses)}" })
 
     check(part2(testInput) == 9, { "${part2(testInput)}" })
 
