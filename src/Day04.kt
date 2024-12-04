@@ -13,7 +13,6 @@ fun main() {
             for (y in -1..1) {
                 if (hasWordTowards(word, input, i, j, x, y)) {
                     count++
-                    // println("Found word: $word at ($i, $j) towards ($x, $y)")
                 }
             }
         }
@@ -31,8 +30,30 @@ fun main() {
         return count
     }
 
+    fun countCrossWordFrom(center: Char, before: Char, after: Char, input: List<String>, i: Int, j: Int): Int {
+        if (input[i][j]!= center) return 0
+
+        var count = 0
+        for (x in 0..1) {
+            for (y in 0..1) {
+                if (input[i + x][j + y] == before && input[i - x][j - y] == after) {
+                    println("Found at ($i, $j) with ($x, $y)")
+                    count++
+                }
+            }
+        }
+
+        return count
+    }
+
     fun part2(input: List<String>): Int {
-        TODO()
+        var count = 0
+        for (i in 1..<input.size - 1) {
+            for (j in 1 until input[i].length - 1) {
+                count += countCrossWordFrom('A', 'M', 'S', input, i, j)
+            }
+        }
+        return count
     }
 
     val smallInput = """
@@ -47,5 +68,8 @@ fun main() {
 
     check(part1(testInput) == 18, { "${part1(testInput)}" })
 
+    check(part2(testInput) == 9, { "${part2(testInput)}" })
+
     part1(input).println()
+    part2(input).println()
 }
