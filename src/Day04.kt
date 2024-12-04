@@ -34,10 +34,10 @@ fun main() {
         if (input[i][j]!= center) return 0
 
         var count = 0
-        for (x in 0..1) {
-            for (y in 0..1) {
-                if (input[i + x][j + y] == before && input[i - x][j - y] == after) {
-                    println("Found at ($i, $j) with ($x, $y)")
+        for (x in -1..1) {
+            for (y in -1..1) {
+                if (input[i + x][j + y] == before && input[i - x][j - y] == after &&
+                    input[i + y][j - x] == before && input[i - y][j + x] == after) {
                     count++
                 }
             }
