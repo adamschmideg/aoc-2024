@@ -55,8 +55,36 @@ fun main() {
         return middleNumbers.sum()
     }
 
+    fun fixPageNumbers(orderingRules: Map<Int,Set<Int>>, pageNumbers: List<Int>): List<Int> {
+        val mutablePageNumbers = pageNumbers.toMutableList()
+        val pageNumbersSet = pageNumbers.toSet()
+        for (pre in orderingRules.keys) {
+            for (post in orderingRules.getOrDefault(pre, setOf())) {
+                if (!pageNumbersSet.contains(pre) || !pageNumbersSet.contains(post)) {
+                    continue
+                }
+                val preIndex = mutablePageNumbers.indexOf(pre)
+                val postIndex = mutablePageNumbers.indexOf(post)
+                if (preIndex > postIndex) {
+                    mutablePageNumbers.removeAt(preIndex)
+                    mutablePageNumbers.add(postIndex, pre)
+                }
+            }
+        }
+        return mutablePageNumbers
+    }
+
     fun part2(input: List<String>): Int {
-        TODO("Your code here")
+        val middleNumbers = arrayListOf<Int>()
+        val (orderingRules, pageNumbersList) = parseManual(input)
+        for (pageNumbers in pageNumbersList) {
+            if (!conformsToRules(orderingRules, pageNumbers)) {
+                val fixedPageNumbers = fixPageNumbers(orderingRules, pageNumbers)
+                middleNumbers.add(getMiddleNumber(fixedPageNumbers))
+            }
+        }
+
+        return middleNumbers.sum()
     }
 
     val testInput = readInput("Day05_test")
@@ -64,5 +92,8 @@ fun main() {
 
     check(part1(testInput) == 143, { "${part1(testInput)}" })
 
+    check(part2(testInput) == 123, { "${part2(testInput)}" })
+
     println("Part 1: ${part1(input)}")
+    println("Part 2: ${part2(input)}")
 }
