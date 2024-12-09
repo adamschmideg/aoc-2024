@@ -52,6 +52,8 @@ fun main() {
             }
         }
 
+        pageNumbersList
+
         return middleNumbers.sum()
     }
 
