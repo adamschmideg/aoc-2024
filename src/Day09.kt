@@ -1,3 +1,5 @@
+import java.math.BigInteger
+
 fun main() {
 
     fun parseMap(line: String): List<Int?> {
@@ -39,18 +41,18 @@ fun main() {
         return list.map { it?.toString() ?: "." }.joinToString("")
     }
 
-    fun checksum(numbers: List<Int?>): Int {
-        var checksum = 0
+    fun checksum(numbers: List<Int?>): BigInteger {
+        var checksum = 0.toBigInteger()
         for (i in numbers.indices) {
             val number = numbers[i]
             if (number!= null) {
-                checksum += number * i
+                checksum += (number * i).toBigInteger()
             }
         }
         return checksum
     }
 
-    fun part1(input: List<String>): Int {
+    fun part1(input: List<String>): BigInteger {
         val filesAndSpaces = parseMap(input[0])
         val arranged = rearrange(filesAndSpaces)
         val checksum = checksum(arranged)
@@ -79,7 +81,7 @@ fun main() {
     val testExpectedArranged1 = "022111222......"
     check(testArranged1 == testExpectedArranged1, { testArranged1 })
 
-    check(part1(testInput) == 1928, { "${part1(testInput)}" })
+    check(part1(testInput).toInt() == 1928, { "${part1(testInput)}" })
 
     // check(part2(testInput) == 123, { "${part2(testInput)}" })
 
