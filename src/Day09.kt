@@ -108,9 +108,6 @@ fun main() {
                     }
                 }
             }
-            println("Block: $blockStart-$blockEnd, $blockSize, currentNumber: $currentNumber")
-            println("Free space: $freeSpaceStart-$freeSpaceEnd, $freeSpaceSize, hasFreeSpace: $hasFreeSpace")
-            println("Array before: ${compact(arr.toList())}")
             // Move block to free space
             if (hasFreeSpace) {
                 for (i in 0 until blockSize) {
@@ -118,8 +115,6 @@ fun main() {
                     arr[blockStart + i] = null
                 }
             }
-            println("Array after:  ${compact(arr.toList())}")
-            println()
         }
         return arr.toList()
     }
@@ -150,5 +145,5 @@ fun main() {
     // check(part2(testInput) == 123, { "${part2(testInput)}" })
 
     // println("Part 1: ${part1(input)}")
-    // println("Part 2: ${part2(input)}")
+    println("Part 2: ${part2(input)}")
 }
